@@ -24,9 +24,9 @@ typedef unsigned long long ull;
 typedef pair < ull,int > ii;
 typedef priority_queue< ii,vector<ii>, greater<ii> > pq_increasing;
 
-int ans1 = 0,ans2 = 0;
+
 int arr[] = {1,5,3,4,8,-2,9,3};
-int len[10];
+int len[8];
 int n = 8;
 int lis ( ) {
     int maxm = 0;
