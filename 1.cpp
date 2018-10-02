@@ -40,6 +40,6 @@ int main () {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     toh(3,'A','B','C');
-    cout << cnt << endl;
+    printf("%d\n",cnt);
     return 0;
 }
