@@ -50,6 +50,20 @@ typedef priority_queue< int,vector<int>, greater<int> > pq_increasing;
 
 string factors[1005];
 
+
+string cmp ( string a, string b ) {
+    int alen = a.length(), blen = b.length();
+    if ( alen == 0 ) return b;
+    if ( blen == 0 ) return a;
+    if ( alen == blen ) {
+        for ( int i = 0; i < alen; i++ ) {
+            if ( a[i] > b[i] ) return b;
+            if ( b[i] > a[i] ) return a;
+        }
+    }
+    return ( alen > blen ) ? b:a;
+}
+
 string add ( string a,string b ) {
     string t;
     if ( b.length() > a.length() ) swap(a,b);
@@ -118,6 +132,7 @@ void precal ( ) {
         factors[i] = multiply(factors[i-1],toString(i));
     }
 }
+
 
 
 
