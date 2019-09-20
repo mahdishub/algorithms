@@ -1,5 +1,5 @@
 const int SIZE = 1e6;
-vector <int> prime
+vector <int> prime;
 bool sieve[SIZE];
 void primeSieve ( int n ) {
     sieve[0] = sieve[1] = 1;
