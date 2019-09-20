@@ -4,7 +4,7 @@ using namespace std;
 
 int parent[10],r[10];
 
-inline int findp ( int a ) {
+int findp ( int a ) {
     return ( parent[a] == a ) ? a : parent[a] = findp(parent[a]);
 }
 
