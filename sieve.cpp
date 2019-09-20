@@ -3,26 +3,24 @@
 using namespace std;
 
 
-vector <unsigned int> prime;
-bool checker[10000000];
+const int SIZE = 1e6;
+vector <int> prime; 
+bool sieve[SIZE]; 
+void primeSieve ( int n ) {
+    sieve[0] = sieve[1] = 1;
 
-void sieve(int n){
+    prime.push_back(2);
+    for ( int i = 4; i <= n; i += 2 ) sieve[i] = 1;
 
-    checker[0] = checker[1] = true;
-    int i,j,sqrtN;
-    sqrtN = sqrt((double)n);
-    for(i=3;i<=sqrtN;i+=2){
-        if(checker[i]==false){
-            for(j=i*i;j<=n;j+=2*i)
-                checker[j]=true;
+    int sqrtn = sqrt ( n );
+    for ( int i = 3; i <= sqrtn; i += 2 ) {
+        if ( sieve[i] == 0 ) {
+            for ( int j = i * i; j <= n; j += 2 * i ) sieve[j] = 1;
         }
     }
-    prime.push_back(2);
-    for(i=3;i<=n;i+=2)
-        if(checker[i]==false)
-            prime.push_back(i);
-}
 
+    for ( int i = 3; i <= n; i += 2 ) if ( sieve[i] == 0 ) prime.push_back(i);
+}
 
 
 int main(){
