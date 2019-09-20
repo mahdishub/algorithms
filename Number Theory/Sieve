@@ -1,10 +1,10 @@
 const int SIZE = 1e6;
 vector <int> prime
-char sieve[SIZE];
+bool sieve[SIZE];
 void primeSieve ( int n ) {
     sieve[0] = sieve[1] = 1;
 
-    prime.push_back(2); // Only Even Prime
+    prime.push_back(2);
     for ( int i = 4; i <= n; i += 2 ) sieve[i] = 1;
 
     int sqrtn = sqrt ( n );
