@@ -8,3 +8,13 @@ ll mpow(ll x, ll y) {
     }
 	return res;
 }
+---------Untested--------------------
+ll strmodpow (string sa, string sb){
+    ll a = 0, b = 0; 
+    for (int i = 0; i < sa.length(); i++) 
+        a = (a * 10 + (sa[i] - '0')) % mod;  
+    for (int i = 0; i < sb.length(); i++) 
+        b = (b * 10 + (sb[i] - '0')) % (mod - 1); 
+    return mpow(a, b); 
+}
+--------Untested--------------------------
