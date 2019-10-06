@@ -58,7 +58,7 @@ typedef tree< int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistic
 template < class T > inline T gcd(T a, T b){while(b){a%=b;swap(a,b);}return a;}
 
 struct Trie{
-    map<char,Trie*> children;
+    unordered_map<char,Trie*> children;
     bool isEndOfWord;
     Trie():isEndOfWord(false) {};
 };
