@@ -1,0 +1,59 @@
+Planning 3 types:
+-Domain specific : problem specific, navigation of a robot through a two or three dimensional space.Theese planners are used when effcieny
+is vital.
+-Domain independent : uses generic representations and exploits the commonalities among different types of planning,algorithms
+are comparitively slower than domain specific planners.
+-Configurable(?)
+
+Conceptual Model : A theoretical device used for describing the elements of a problem.
+State transition systems are used.
+ Σ(S,A,E,γ)
+ S-> states the world can be in.
+ A->actions that can be performed by agent.
+ E-> events that can happen in the world.
+ γ->state transition function
+ γ = S*(A∪E) -> 2^s(?)
+ an action a is applicable, i.e , a ∈ A, if  γ(s,a) != {∅}.
+ so there if an action a is applicable, there is a  s'= γ(s,a);
+ state transition function are also represented as state transition graph where every edge is an valid action.
+ Missionaries and Cannibals problem.
+ 
+||Scheduling: (?)||
+
+||||Natural Language Processing:||||
+||Applications:||
+-Sentiment analysis
+-Speech recognition
+-Chat Bot
+-Machine Translation
+-Spell Checking
+-Information Extraction
+-Keyword searching
+-Advertisement matching
+ 
+ ||NLP methods:||
+-Tokenization
+-Stemming
+-Lemmatization
+-POS tags
+-Named entity recognition
+-Chunking
+
+||Nerural Networks:||
+-Image Processing
+-Audio Processing
+Example : Hand written number recognition.
+Suppose in a image of dimensions 60*60px.The first layer will have 3600 nodes.The last resulting layer will have 10 nodes corrosponding
+to number from 0-9. The value of each node will be from 0-1 which will demonstrate the likelihood of that node happening.Each number is
+broken into a smaller patterns making the algortihm take a divide and conquer approach.
+
+||Structured Prediction||
+Used in NLP in things like POS tagging.
+
+||Web mining||
+Detemining item trends and developing customer recomendations.
+||Deep Learning||
+-Artificial Neural Networks.
+
+
+ 
