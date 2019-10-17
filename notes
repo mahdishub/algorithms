@@ -1,5 +1,5 @@
 Planning 3 types:
--Domain specific : problem specific, navigation of a robot through a two or three dimensional space.Theese planners are used when effcieny
+-Domain specific : problem specific, navigation of a robot through a two or three dimensional space.Theese planners are used when effciency
 is vital.
 -Domain independent : uses generic representations and exploits the commonalities among different types of planning,algorithms
 are comparitively slower than domain specific planners.
