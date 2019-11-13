@@ -10,7 +10,7 @@ void primeSieve ( int n ) {
     int sqrtn = sqrt ( n );
     for ( int i = 3; i <= sqrtn; i += 2 ) {
         if ( sieve[i] == 0 ) {
-            for ( int j = i * i; j <= n; j += 2 * i ) sieve[j] = 1;
+            for ( int j = i * i; j <= n; j += (i+i) ) sieve[j] = 1;
         }
     }
 
