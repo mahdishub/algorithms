@@ -1,0 +1,46 @@
+void dfs ( int src ) {
+    visit[src] = 1;
+    for( int i = 0; i < graph[src].size(); i++ ) {
+        int v = graph[src][i];
+        if ( visit[v] ) continue;
+        parent[v][0] = src;
+        lvl[v] =  lvl[src] + 1;
+        dfs(v);
+    }
+}
+
+void build_table ( ) {
+
+    for ( int pw = 1; pw <= 10; pw++ ) {
+        for ( int i = 1; i <= n; i++ ) {
+            int p1 = parent[i][pw-1];
+            parent[i][pw] = parent[p1][pw-1];
+        }
+    }
+
+}
+
+int lvl_up ( int node, int levels ) {
+
+    while ( levels > 0 ) {
+        int tmp = log2(levels);
+        node = parent[node][tmp];
+        levels -= (1<<tmp);
+    }
+    return node;
+}
+
+
+int find_lca ( int n1, int n2 ) {
+
+    if ( lvl[n1] > lvl[n2] ) swap(n1,n2);
+    n2 = lvl_up(n2,lvl[n2]-lvl[n1]);
+
+    if ( n1 == n2 ) return n1;
+
+    for ( int pw = 10; pw >= 0; pw-- ) {
+        if ( parent[n1][pw] == parent[n2][pw] ) continue;
+        n1 = parent[n1][pw], n2 = parent[n2][pw];
+    }
+    return parent[n1][0];
+}
