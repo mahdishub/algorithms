@@ -1,0 +1,71 @@
+/*
+  Indexed at 1.
+*/
+
+struct node{
+    int val = 0;
+};
+
+const int sz = int(3*1e5);
+node Tree[sz];
+int lazy[sz];
+int Left,Right;
+
+inline void Clear ( ) {
+    mem(lazy,0);
+    mem(Tree,0);
+}
+
+inline void marklazy ( int idx, int l, int r, int val ) {
+    if ( l == r ) return;
+    int nidx = idx<<1;
+    int m = (l+r)>>1;
+    int upval1 = (m-l+1)*val; /// total update in left node
+    int upval2 = (r-m)*val; /// total update in right node
+    lazy[nidx] += val;
+    Tree[nidx].val += upval1;
+    lazy[nidx+1] += val;
+    Tree[nidx+1].val += upval2;
+}
+
+void update_tree ( int idx,int l,int r,int val ) {
+    int mid = (l+r)>>1;
+    int upval = (r-l+1)*val; /// value to be updated
+
+    if ( l >= Left && r <= Right ) { /// completely in segment
+        Tree[idx].val += upval; /// update value in tree node
+        lazy[idx] += val; /// update lazy val
+        return;
+    }
+    if ( l > Right | r < Left | l > r ) return;
+
+    if ( lazy[idx] > 0 ) {
+        if ( l != r ) marklazy(idx,l,r,lazy[idx]);
+        lazy[idx] = 0;
+    }
+    int nidx = idx<<1;
+
+    update_tree(nidx,l,mid,val);
+    update_tree(nidx+1,mid+1,r,val);
+
+    Tree[idx].val = Tree[nidx].val + Tree[nidx+1].val;
+}
+
+int query ( int idx, int l, int r ) {
+    int mid = (l+r)>>1;
+    int nidx = idx<<1;
+    if ( l >= Left && r <= Right ) { /// completely in segment
+        return Tree[idx].val;
+    }
+    if ( l > Right | r < Left | l > r ) return 0; /// completely out of segment
+
+    if ( lazy[idx] > 0 ) {
+        marklazy(idx,l,r,lazy[idx]);
+        lazy[idx] = 0; /// childs are updated
+    }
+    int ans1 = query(nidx,l,mid);
+    int ans2 = query(nidx,mid+1,r);
+
+    return ans1+ans2;
+
+}
