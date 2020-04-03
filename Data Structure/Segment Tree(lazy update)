@@ -64,7 +64,7 @@ int query ( int idx, int l, int r ) {
         lazy[idx] = 0; /// childs are updated
     }
     int ans1 = query(nidx,l,mid);
-    int ans2 = query(nidx,mid+1,r);
+    int ans2 = query(nidx+1,mid+1,r);
 
     return ans1+ans2;
 
