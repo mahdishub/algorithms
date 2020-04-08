@@ -1,7 +1,9 @@
-int lvl[1005];
-int parent[1005][12];
-int visit[1005];
-vector <int> graph[1005];
+const int sz = 10005;
+const int LOGN = 14;
+int lvl[sz];
+int parent[sz][LOGN+2];
+int visit[sz];
+vector <int> graph[sz];
 int n;
 
 void dfs ( int src ) {
@@ -17,7 +19,7 @@ void dfs ( int src ) {
 
 void build_table ( ) {
 
-    for ( int pw = 1; pw <= 10; pw++ ) {
+    for ( int pw = 1; pw <= LOGN; pw++ ) {
         for ( int i = 1; i <= n; i++ ) {
             int p1 = parent[i][pw-1];
             parent[i][pw] = parent[p1][pw-1];
@@ -44,7 +46,7 @@ int find_lca ( int n1, int n2 ) {
 
     if ( n1 == n2 ) return n1;
 
-    for ( int pw = 10; pw >= 0; pw-- ) {
+    for ( int pw = LOGN; pw >= 0; pw-- ) {
         if ( parent[n1][pw] == parent[n2][pw] ) continue;
         n1 = parent[n1][pw], n2 = parent[n2][pw];
     }
