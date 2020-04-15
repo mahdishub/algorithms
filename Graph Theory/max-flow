@@ -1,1 +1,57 @@
-
+const int sz = 105;
+int graph[sz][sz];
+int parent[sz];
+bool visit[sz];
+ 
+vector <int> adj_graph[sz];
+int s,d,c;
+ 
+void Clear ( ) {
+    memset(graph,0,sizeof(graph));
+    fr(i,sz) adj_graph[i].clear();
+}
+ 
+bool find_p ( int src, int dist ) {
+ 
+    memset(visit,0,sizeof(visit));
+    parent[src] = -1;
+    queue <int> q;
+    q.push(src);
+    visit[src] = 1;
+    while ( !q.empty() ) {
+        int u = q.front();
+        q.pop();
+        for ( int i = 0; i < adj_graph[u].size(); i++ ) {
+            int v = adj_graph[u][i];
+            if ( !visit[v] && graph[u][v] > 0 ) {
+                q.push(v);
+                parent[v] = u;
+                visit[v] = 1;
+            }
+        }
+    }
+    return visit[dist];
+}
+ 
+int maxflow ( ) {
+    int mxm = 0;
+    int pthflow;
+    while ( find_p(s,d) ) {
+        pthflow = inf;
+        int cur = d,p;
+        while ( cur != s ) {
+            p = parent[cur];
+            pthflow = min(pthflow,graph[p][cur]);
+            cur = p;
+        }
+        cur = d;
+        while ( cur != s ) {
+            p = parent[cur];
+            graph[p][cur] -= pthflow;
+            graph[cur][p] += pthflow;
+            cur = p;
+        }
+        mxm += pthflow;
+    }
+    return mxm;
+}
