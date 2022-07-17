@@ -69,7 +69,7 @@ public:
         return component[node1] != component[node2];
     }
 
-    vector<vector<int>>& getDagGraph() {
+    vector<vector<int>> getDagGraph() {
         vector<vector<int>> dagGraph;
         dagGraph.resize(maxN);
 
