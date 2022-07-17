@@ -1,20 +1,22 @@
-
 struct SCC {
-    vector<vector<int>> adjacencyList; // adjacencyList represnetation of a graph.
+    vector<vector<int>> adjacencyList; // adjacencyList representation of a graph.
     vector<int> component; // component array
     vector<int> low; // low link values array
     vector<int> discovery; // discovery time array
     stack<int> stk; // stack to maintain
     vector<bool> onStack; // to maintain which nodes are on stack
     int time = 0;
+    int componentCount = 0;
+    int maxN;
     SCC() {};
 
     SCC(vector<vector<int>>& adjacencyList) {
+        maxN = adjacencyList.size();
         this->adjacencyList = adjacencyList;
-        component.resize(adjacencyList.size());
-        low.resize(adjacencyList.size());
-        discovery.resize(adjacencyList.size(), -1);
-        onStack.resize(adjacencyList.size());
+        component.resize(maxN);
+        low.resize(maxN);
+        discovery.resize(maxN, -1);
+        onStack.resize(maxN);
     }
 
 private:
@@ -34,11 +36,12 @@ private:
         }
 
         if (low[src] == discovery[src]) {
+            componentCount++;    
             while (true) {
                 int top = stk.top();
                 stk.pop();
 
-                component[top] = low[top];
+                component[top] = src;
                 onStack[top] = false;
 
                 if (top == src) break;
@@ -64,10 +67,10 @@ public:
     }
 
     vector<vector<int>>& getDagGraph() {
-        vector<vector<int>> dagGraph(this->adjacencyList.size());
+        vector<vector<int>> dagGraph(adjacencyList.size());
 
-        for (int i = 0; i < this->adjacencyList.size(); i++) {
-            for (int j: this->adjacencyList[i]) {
+        for (int i = 0; i < adjacencyList.size(); i++) {
+            for (int j: adjacencyList[i]) {
                 if (isFromDifferentComponent(i,j)) {
                     dagGraph[i].push_back(j);
                 }
@@ -75,5 +78,9 @@ public:
         }
 
         return dagGraph;
+    }
+
+    int getComponentCount() {
+        return componentCount;
     }
 };
