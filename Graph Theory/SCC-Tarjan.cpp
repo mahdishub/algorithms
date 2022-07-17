@@ -1,5 +1,5 @@
 struct SCC {
-    vector<vector<int>> adjacencyList; // adjacencyList representation of a graph.
+    vector<vector<int>> graph; // adjacencyList representation of a graph.
     vector<int> component; // component array
     vector<int> low; // low link values array
     vector<int> discovery; // discovery time array
@@ -8,11 +8,14 @@ struct SCC {
     int time = 0;
     int componentCount = 0;
     int maxN;
+    int lowestNode, highestNode;
     SCC() {};
 
-    SCC(vector<vector<int>>& adjacencyList) {
-        maxN = adjacencyList.size();
-        this->adjacencyList = adjacencyList;
+    SCC(vector<vector<int>>& graph, int lowestNode, int highestNode) {
+        maxN = graph.size();
+        this->graph = graph;
+        this->lowestNode = lowestNode;
+        this->highestNode = highestNode;
         component.resize(maxN);
         low.resize(maxN);
         discovery.resize(maxN, -1);
@@ -26,7 +29,7 @@ private:
         stk.push(src);
         onStack[src] = true;
 
-        for (int dest: adjacencyList[src]) {
+        for (int dest: graph[src]) {
             if (discovery[dest] == -1) {
                 dfs(dest);
                 low[src] = min(low[src], low[dest]);
@@ -36,7 +39,7 @@ private:
         }
 
         if (low[src] == discovery[src]) {
-            componentCount++;    
+            componentCount++;
             while (true) {
                 int top = stk.top();
                 stk.pop();
@@ -51,8 +54,8 @@ private:
 
 public:
     void generateSCCComponents() {
-        for (int i = 0; i < adjacencyList.size(); i++) {
-            if (discovery[i] == -1) {
+        for (int i = lowestNode; i <= highestNode; i++) {
+             if (discovery[i] == -1) {
                 dfs(i);
             }
         }
@@ -67,12 +70,13 @@ public:
     }
 
     vector<vector<int>>& getDagGraph() {
-        vector<vector<int>> dagGraph(adjacencyList.size());
+        vector<vector<int>> dagGraph;
+        dagGraph.resize(maxN);
 
-        for (int i = 0; i < adjacencyList.size(); i++) {
-            for (int j: adjacencyList[i]) {
-                if (isFromDifferentComponent(i,j)) {
-                    dagGraph[i].push_back(j);
+        for (int u = lowestNode; u <= highestNode; u++) {
+            for (int v: graph[u]) {
+                if (isFromDifferentComponent(u,v)) {
+                    dagGraph[u].push_back(v);
                 }
             }
         }
